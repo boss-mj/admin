@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Form</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+      .login-form {
+        width: 350px;
+        margin: 150px auto;
+        padding: 30px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+      }
+      .login-form h2 {
+        margin-bottom: 30px;
+      }
+      .form-control:focus {
+        border-color: #007bff;
+        box-shadow: none;
+      }
+      .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+      }
+      .btn-primary:hover {
+        background-color: #0069d9;
+        border-color: #0062cc;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-form">
+      <h2 class="text-center">Log in</h2>
+      <form id="login-form">
+        <div class="form-group">
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            placeholder="Email"
+            required="required"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="password"
+            id="password"
+            class="form-control"
+            placeholder="Password"
+            required="required"
+          />
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block">
+            Log in
+          </button>
+        </div>
+        <div class="clearfix">
+          <label class="float-left form-check-label"
+            ><input type="checkbox" /> Remember me</label
+          >
+          <a href="#" class="float-right">Forgot Password?</a>
+        </div>
+      </form>
+    </div>
+
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Firebase JavaScript SDK -->
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.3/firebase-auth.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyBiHKLtcEbrBbdNbXLt9ERe9pV4NrifGfw",
+        authDomain: "chatroom-384f9.firebaseapp.com",
+        databaseURL: "https://chatroom-384f9-default-rtdb.firebaseio.com",
+        projectId: "chatroom-384f9",
+        storageBucket: "chatroom-384f9.appspot.com",
+        messagingSenderId: "81188628621",
+        appId: "1:81188628621:web:3f633f35167dc0f3af9ac4",
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      // Get elements
+      const loginForm = document.getElementById("login-form");
+      const emailInput = document.getElementById("email");
+      const passwordInput = document.getElementById("password");
+
+      // Add login event
+      loginForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const email = emailInput.value;
+        const password = passwordInput.value;
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(email, password)
+          .then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            console.log("User signed in:", user);
+            // Redirect or do something else upon successful login
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.error("Login error:", errorMessage);
+            // Handle errors, show messages, etc.
+          });
+      });
+    </script>
+  </body>
+</html>
